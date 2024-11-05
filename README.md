@@ -1,0 +1,2 @@
+# TheCube
+Rubix cube game

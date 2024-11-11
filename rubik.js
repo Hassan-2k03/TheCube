@@ -4,7 +4,7 @@
 function Rubik(element, dimensions, background) {
 
     dimensions = dimensions || 3;
-    background = background || 0xf5f5dc;  // Changed to match soft beige in CSS
+    background = background || 0x708090;  // Changed to match slate gray in CSS
   
     var width = element.innerWidth(),
         height = element.innerHeight();

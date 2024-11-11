@@ -5,7 +5,7 @@ html, body {
 body { 
 	margin: 0; 
 	overflow: hidden; 
-	background-color: #f5f5dc;  /* Changed to soft beige */
+	background-color: #708090;  /* Changed to slate gray */
 	font-family: 'Alegreya Sans SC';
 	color: #eee;
 }

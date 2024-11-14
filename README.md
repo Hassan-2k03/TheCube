@@ -15,27 +15,9 @@
   - Reset to starting position
 - **Customizable Size:** Choose between 3x3, 4x4, or 5x5 cube configurations
 
-## 📥 Installation
+## 📥 Installation & Running
 
-### 1. Clone the Repository
-
-First, clone the repository to your local machine:
-
-bash git clone https://github.com/Hassan-2k03/TheCube.git
-
-
-### 2. Install Dependencies
-Navigate to the project directory and install the required dependencies:
-
-bash cd TheCube npm install
-
-
-### 3. Run the App
-Start the development server:
-
-bash npm start
-
-The app will be running on http://localhost:3000.
+Clone the repository.
 
 ## 🛠️ Technologies Used
 - Three.js: Powerful 3D rendering engine for creating the interactive Rubik's Cube.

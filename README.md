@@ -1,5 +1,5 @@
 TheCube
-A 3D Rubik's Cube game built with Three.js and React. This project allows users to interact with a digital Rubik's Cube, rotating and solving it through an intuitive interface.
+A 3D Rubik's Cube game built with Three.js and React. <br> This project allows users to interact with a digital Rubik's Cube, rotating and solving it through an intuitive interface.
 
 Features
 3D cube rendering using Three.js

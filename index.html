@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- Styling and fonts -->
   <meta charset="utf-8" />
   <title>Rubik Cube</title>
   <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC' rel='stylesheet' type='text/css'>
@@ -11,8 +12,10 @@
 
 <body>
 
+  <!-- GitHub ribbon -->
   <a href="https://github.com/Hassan-2k03/TheCube"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 
+  <!-- Control panel -->
   <ul id="controls">
     <li><a href="#shuffle" id="button-shuffle">Shuffle</a></li>
     <li><a href="#solve" id="button-solve">Solve</a></li>
@@ -29,12 +32,14 @@
     </li>
   </ul>
 
+  <!-- Main cube container -->
   <div id="scene"></div>
 
   <p id="info">
     Built with <a href="http://threejs.org">Three.js</a>
   </p>
 
+  <!-- Required libraries -->
   <script src="lib/jquery-2.0.3.js"></script>
   <script src="lib/three.js"></script>
   <script src="lib/OrbitControls.js"></script>
@@ -42,10 +47,12 @@
   <script src='lib/threex.domevent.object3d.js'></script>
 
   <script src="rubik.js"></script>
+  <!-- Initialization script -->
   <script>
 
     $(function() {
       function init(dimensions) {
+        // Initialize cube with selected dimensions
         dimensions = +(dimensions) || 3;
 
         var element = $("#scene").empty();

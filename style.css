@@ -1,7 +1,9 @@
+/* Basic reset and container setup */
 html, body {
 	height: 100%;
 }
 
+/* Main styling and background */
 body { 
 	margin: 0; 
 	overflow: hidden; 
@@ -21,6 +23,7 @@ a {
 	text-decoration: none;
 }
 
+/* Controls panel styling */
 #controls { 
 	position: absolute;
 	top: 0;
@@ -62,6 +65,7 @@ a {
 	color: #ff7600;
 }
 
+/* Scene container for the Rubik's cube */
 #scene { 
 	height: 100%;
 }

@@ -1,6 +1,9 @@
-// element: a jQuery object containing the DOM element to use
-// dimensions: the number of cubes per row/column (default 3)
-// background: the scene background colour
+/**
+ * Main Rubik's Cube constructor
+ * @param {jQuery} element - DOM element to render cube
+ * @param {number} dimensions - Number of cubes per row/column (default 3)
+ * @param {number} background - Scene background color
+ */
 function Rubik(element, dimensions, background) {
 
     dimensions = dimensions || 3;
@@ -11,7 +14,8 @@ function Rubik(element, dimensions, background) {
   
     var debug = false;
   
-    /*** three.js boilerplate ***/
+    /*** Three.js Setup ***/
+    // Initialize scene, camera and renderer
     var scene = new THREE.Scene(),
         camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000),
         renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -95,6 +99,8 @@ function Rubik(element, dimensions, background) {
     // valid movements that end outside of the Rubik's cube
     var lastCube;
   
+    /*** Cube Interaction Handlers ***/
+    // Handle mouse events for cube rotation
     var onCubeMouseDown = function(e, cube) {
       disableCameraControl();
   
@@ -240,16 +246,14 @@ function Rubik(element, dimensions, background) {
       }
     }
   
-    /*** Manage transition states ***/
-  
+    /*** Move Management ***/
+    // Queue system for handling multiple moves
     //TODO: encapsulate each transition into a "Move" object, and keep a stack of moves
     // - that will allow us to easily generalise to other states like a "hello" state which
     // could animate the cube, or a "complete" state which could do an animation to celebrate
     // solving.
-    var moveEvents = $({});
-  
-    //Maintain a queue of moves so we can perform compound actions like shuffle and solve
-    var moveQueue = [],
+    var moveEvents = $({}),
+        moveQueue = [],
         completedMoveStack = [],
         currentMove;
   
@@ -363,7 +367,6 @@ function Rubik(element, dimensions, background) {
       startNextMove();
     }
   
-  
     function render() {
   
       //States
@@ -385,69 +388,70 @@ function Rubik(element, dimensions, background) {
     //Go!
     render();
   
-    //Public API
+    /*** Public API ***/
     return {
-      shuffle: function() {
-        function randomAxis() {
-          return ['x', 'y', 'z'][randomInt(0,2)];
-        }
-  
-        function randomDirection() {
-          var x = randomInt(0,1);
-          if(x == 0) x = -1;
-          return x;
-        }
-  
-        function randomCube() {
-          var i = randomInt(0, allCubes.length - 1);
-          //TODO: don't return a centre cube
-          return allCubes[i];
-        }
-  
-        var nMoves = randomInt(10, 40);
-        for(var i = 0; i < nMoves; i ++) {
-          //TODO: don't reselect the same axis?
-          var cube = randomCube();
-          pushMove(cube, cube.position.clone(), randomAxis(), randomDirection());
-        }
-  
-        startNextMove();
-      },
-  
-      //A naive solver - step backwards through all completed steps
-      solve: function() {
-        if(!isMoving) {
-          completedMoveStack.forEach(function(move) {
-            pushMove(move.cube, move.vector, move.axis, move.direction * -1);
-          });
-  
-          //Don't remember the moves we're making whilst solving
-          completedMoveStack = [];
-  
-          moveEvents.one('deplete', function() {
-            completedMoveStack = [];
-          });
-  
-          startNextMove();
-        }
-      },
-  
-      //Rewind the last move
-      undo: function() {
-        if(!isMoving) {
-          var lastMove = completedMoveStack.pop();
-          if(lastMove) {
-            //clone
-            var stackToRestore = completedMoveStack.slice(0);
-            pushMove(lastMove.cube, lastMove.vector, lastMove.axis, lastMove.direction * -1);
-  
-            moveEvents.one('complete', function() {
-              completedMoveStack = stackToRestore;
-            });
-  
+        // Randomly shuffle the cube
+        shuffle: function() {
+            function randomAxis() {
+                return ['x', 'y', 'z'][randomInt(0,2)];
+            }
+    
+            function randomDirection() {
+                var x = randomInt(0,1);
+                if(x == 0) x = -1;
+                return x;
+            }
+    
+            function randomCube() {
+                var i = randomInt(0, allCubes.length - 1);
+                //TODO: don't return a centre cube
+                return allCubes[i];
+            }
+    
+            var nMoves = randomInt(10, 40);
+            for(var i = 0; i < nMoves; i ++) {
+                //TODO: don't reselect the same axis?
+                var cube = randomCube();
+                pushMove(cube, cube.position.clone(), randomAxis(), randomDirection());
+            }
+    
             startNextMove();
-          }
+        },
+    
+        // Solve by reversing moves
+        solve: function() {
+            if(!isMoving) {
+                completedMoveStack.forEach(function(move) {
+                    pushMove(move.cube, move.vector, move.axis, move.direction * -1);
+                });
+    
+                //Don't remember the moves we're making whilst solving
+                completedMoveStack = [];
+    
+                moveEvents.one('deplete', function() {
+                    completedMoveStack = [];
+                });
+    
+                startNextMove();
+            }
+        },
+    
+        // Undo last move
+        undo: function() {
+            if(!isMoving) {
+                var lastMove = completedMoveStack.pop();
+                if(lastMove) {
+                    //clone
+                    var stackToRestore = completedMoveStack.slice(0);
+                    pushMove(lastMove.cube, lastMove.vector, lastMove.axis, lastMove.direction * -1);
+    
+                    moveEvents.one('complete', function() {
+                        completedMoveStack = stackToRestore;
+                    });
+    
+                    startNextMove();
+                }
+            }
         }
-      }
     }
   }

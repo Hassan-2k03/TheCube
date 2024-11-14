@@ -1,6 +1,6 @@
 # TheCube: 3D Rubik's Cube Game
 
-[![Play TheCube](https://i.imgur.com/KPq5e6m.png)](https://hassan-2k03.github.io/TheCube/)
+### 🎮 [Play TheCube](https://hassan-2k03.github.io/TheCube/)
 
 **TheCube** is an interactive 3D Rubik's Cube game built with **Three.js** and **React**. It allows users to rotate and solve a virtual Rubik's Cube through an intuitive interface, providing an immersive and fun experience. Whether you're a beginner or a seasoned puzzle solver, this app lets you engage with the cube in a whole new way.
 
